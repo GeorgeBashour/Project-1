@@ -14,7 +14,9 @@ library(dplyr)
 #pm, pv = PSS mean, PSS sd and so on with h, q, c
 #This code will be running twice on two different sheets on the same identifiers, once for outcomes and 
 #the second time for changes
-
+options(digits = 2)
+extract <- read_excel("extract.xlsx", sheet = "Outcomes")
+View(extract)
 #Outcomes:
 
 #PSS Forest
