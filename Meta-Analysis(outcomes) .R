@@ -23,7 +23,7 @@ forest(respssL8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18
 
 text(c(-15, -14, -13, -11.5, -10.5, -9.5), respssL8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-14, -10.5), respssL8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-14, -10.5), respssL8$k+3, c("Intervention", "control"), cex = 0.8)
 
 reporter(respssL8, format = "word")
 
@@ -45,7 +45,7 @@ forest(respss8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-30,
 
 text(c(-25, -23.5, -22, -20.5, -19, -17.5), respss8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-23.5, -19), respss8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-23.5, -19), respss8$k+3, c("Intervention", "control"), cex = 0.8)
 
 reporter(respss8, format = "word")
 
@@ -70,7 +70,7 @@ forest(reshaml8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-30
 
 text(c(-25, -23.5, -22, -20.5, -19, -17.5), reshaml8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-23.5, -19), reshaml8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-23.5, -19), reshaml8$k+3, c("Intervention", "control"), cex = 0.8)
 
 reporter(reshaml8, format = "word")
 
@@ -93,7 +93,7 @@ forest(resham8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18,
 
 text(c(-15, -14, -13, -11.5, -10.5, -9.5), resham8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-14, -10.5), resham8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-14, -10.5), resham8$k+3, c("Intervention", "control"), cex = 0.8)
 
 reporter(resham8, format = "word")
 #############################################################################
@@ -117,7 +117,7 @@ forest(resqoll8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18
 
 text(c(-15, -14, -13, -11.5, -10.5, -9.5), resqoll8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-14, -10.5), resqoll8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-14, -10.5), resqoll8$k+3, c("Intervention", "control"), cex = 0.8)
 
 
 reporter(resqoll8, format = "word")
@@ -143,7 +143,7 @@ forest(rescortl8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-1
 
 text(c(-15, -14, -13, -11.5, -10.5, -9.5), rescortl8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-14, -10.5), rescortl8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-14, -10.5), rescortl8$k+3, c("Intervention", "control"), cex = 0.8)
 reporter(rescortl8, format = "word")
 
 
@@ -164,5 +164,5 @@ forest(rescort8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18
 
 text(c(-15, -14, -13, -11.5, -10.5, -9.5), rescort8$k+2,
      c("Mean", "SD", "Total", "Mean", "SD", "Total"), cex = 0.8)
-text(c(-14, -10.5), rescort8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
+text(c(-14, -10.5), rescort8$k+3, c("Intervention", "control"), cex = 0.8)
 reporter(rescort8, format = "word")
