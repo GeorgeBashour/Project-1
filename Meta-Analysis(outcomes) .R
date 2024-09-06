@@ -1,5 +1,5 @@
 library(metafor)
-
+library(readxl)
 options(digits = 2)
 extract <- read_excel("extract.xlsx", sheet = "Outcomes")
 View(extract)
