@@ -1,18 +1,18 @@
 library(metafor)
 library(dplyr)
-library(reporter)
+
 #Title: Effect of  Ashwagandha supplementation for management stress and anxiety 
 #       in adults: A systematic review and meta-analysis of randomized controlled trials
 
 #study: Study identifier:
 #1= intervention
 #2=placebo
-#L8, 8 , M8= less than 8 weeks ,  8 weeks , more than 8 weeks
-#n1: Sample size in group 1
-#n2: Sample size in group 2
+#L8, 8, M8= less than 8 weeks,  8 weeks, more than 8 weeks(not enough data)
+#n1: Sample size in group 1(Ashwagandha)
+#n2: Sample size in group 2(placebo)
 #p, h , q ,c =PSS , HAM-A, QOL, Cortisol
-#pm, pmv = PSS mean, PSS sd and so on with h, q , c
-#This code will be ran twice on two different sheets on the same identifiers, once for outcomes and 
+#pm, pv = PSS mean, PSS sd and so on with h, q, c
+#This code will be running twice on two different sheets on the same identifiers, once for outcomes and 
 #the second time for changes
 
 #Outcomes:
