@@ -1,27 +1,11 @@
 library(metafor)
-library(dplyr)
 
-#Title: Effect of  Ashwagandha supplementation for management stress and anxiety 
-#       in adults: A systematic review and meta-analysis of randomized controlled trials
-
-#study: Study identifier:
-#1= intervention
-#2=placebo
-#L8, 8, M8= less than 8 weeks,  8 weeks, more than 8 weeks(not enough data)
-#n1: Sample size in group 1(Ashwagandha)
-#n2: Sample size in group 2(placebo)
-#p, h , q ,c =PSS , HAM-A, QOL, Cortisol
-#pm, pv = PSS mean, PSS sd and so on with h, q, c
-#This code will be running twice on two different sheets on the same identifiers, once for outcomes and 
-#the second time for changes
 options(digits = 2)
 extract <- read_excel("extract.xlsx", sheet = "Outcomes")
 View(extract)
 #Outcomes:
 
-#PSS Forest
 
-#Less than 8 weeks
 pssL8 <- extract[complete.cases(extract[, c("pm.L8.1", "pm.L8.2", "pv.L8.1", "pv.L8.2")]), ]
 
 pssL8 <- escalc(measure ="MD", m1i=`pm.L8.1`, m2i=`pm.L8.2`
@@ -43,7 +27,7 @@ text(c(-14, -10.5), respssL8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
 
 reporter(respssL8, format = "word")
 
-#8 weeks
+
 pss8 <- extract[complete.cases(extract[, c("pm.8.1", "pm.8.2", "pv.8.1", "pv.8.2")]), ]
 
 pss8 <- escalc(measure ="MD", m1i=`pm.8.1`, m2i=`pm.8.2`
@@ -67,9 +51,8 @@ reporter(respss8, format = "word")
 
 ##########################################################################
 
-#HAM-A Forest
 
-#Less than 8 weeks
+
 haml8 <- extract[complete.cases(extract[, c("hm.L8.1", "hm.L8.2", "hv.L8.1", "hv.L8.2")]), ]
 
 haml8 <- escalc(measure ="MD", m1i=`hm.L8.1`, m2i=`hm.L8.2`
@@ -92,7 +75,7 @@ text(c(-23.5, -19), reshaml8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
 reporter(reshaml8, format = "word")
 
 
-#8 weeks
+
 ham8 <- extract[complete.cases(extract[, c("hm.8.1", "hm.8.2", "hv.8.1", "hv.8.2")]), ]
 
 ham8 <- escalc(measure ="MD", m1i=`hm.8.1`, m2i=`hm.8.2`
@@ -114,9 +97,9 @@ text(c(-14, -10.5), resham8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
 
 reporter(resham8, format = "word")
 #############################################################################
-# QOL Forest
 
-#Less than 8 weeks
+
+
 qoll8 <- extract[complete.cases(extract[, c("qm.L8.1", "qm.L8.2", "qv.L8.1", "qv.L8.2")]), ]
 
 qoll8 <- escalc(measure ="MD", m1i=`qm.L8.1`, m2i=`qm.L8.2`
@@ -139,10 +122,10 @@ text(c(-14, -10.5), resqoll8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
 
 reporter(resqoll8, format = "word")
 ######################################################################
-#cortisol Forest
 
 
-#Less than 8 weeks
+
+
 cortl8 <- extract[complete.cases(extract[, c("cm.L8.1", "cm.L8.2", "cv.L8.1", "cv.L8.2")]), ]
 
 cortl8 <- escalc(measure ="MD", m1i=`cm.L8.1`, m2i=`cm.L8.2`
@@ -163,7 +146,7 @@ text(c(-15, -14, -13, -11.5, -10.5, -9.5), rescortl8$k+2,
 text(c(-14, -10.5), rescortl8$k+3, c("Ashwagandha", "Placebo"), cex = 0.8)
 reporter(rescortl8, format = "word")
 
-#8 weeks
+
 cort8 <- extract[complete.cases(extract[, c("cm.8.1", "cm.8.2", "cv.8.1", "cv.8.2")]), ]
 
 cort8 <- escalc(measure ="MD", m1i=`cm.8.1`, m2i=`cm.8.2`
