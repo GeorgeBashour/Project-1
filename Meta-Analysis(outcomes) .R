@@ -14,7 +14,6 @@ pssL8 <- escalc(measure ="MD", m1i=`pm.L8.1`, m2i=`pm.L8.2`
 respssL8 <- rma(yi, vi , data = pssL8)
 respssL8
 
-
 forest(respssL8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7),
        ilab = cbind(pssL8$`pm.L8.1`, pssL8$`pv.L8.1`,pssL8$n1,
                     pssL8$`pm.L8.2`, pssL8$`pv.L8.2`, pssL8$n2),
@@ -75,6 +74,13 @@ text(c(-23.5, -19), reshaml8$k+3, c("Intervention", "control"), cex = 0.8)
 reporter(reshaml8, format = "word")
 
 
+reshaml8 <- rma(yi, vi , data = haml8)
+reshaml8
+
+l1ohaml8 <-leave1out(reshaml8)
+l1ohaml8
+forest(l1ohaml8$estimate, sei=l1ohaml8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(haml8$study), refline=coef(reshaml8), xlim = c(-5,2))
 
 ham8 <- extract[complete.cases(extract[, c("hm.8.1", "hm.8.2", "hv.8.1", "hv.8.2")]), ]
 
@@ -84,6 +90,11 @@ ham8 <- escalc(measure ="MD", m1i=`hm.8.1`, m2i=`hm.8.2`
 resham8 <- rma(yi, vi , data = ham8)
 resham8
 
+influence(resham8)
+l1oham8 <-leave1out(resham8)
+l1oham8
+forest(l1oham8$estimate, sei=l1oham8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(ham8$study), refline=coef(resham8), xlim = c(-15, 7))
 
 forest(resham8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7), 
        ilab = cbind(ham8$`hm.8.1`, ham8$`hv.8.1`,ham8$n1,
@@ -108,6 +119,11 @@ qoll8 <- escalc(measure ="MD", m1i=`qm.L8.1`, m2i=`qm.L8.2`
 resqoll8 <- rma(yi, vi , data = qoll8)
 resqoll8
 
+influence(resqoll8)
+l1oqoll8 <-leave1out(resqoll8)
+l1oqoll8
+forest(l1oqoll8$estimate, sei=l1oqoll8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(qoll8$study), refline=coef(resqoll8), xlim = c(-15, 7))
 
 forest(resqoll8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 11), 
        ilab = cbind(qoll8$`qm.L8.1`, qoll8$`qv.L8.1`,qoll8$n1,
@@ -133,7 +149,12 @@ cortl8 <- escalc(measure ="MD", m1i=`cm.L8.1`, m2i=`cm.L8.2`
 
 rescortl8 <- rma(yi, vi , data = cortl8)
 rescortl8
+influence(rescortl8)
 
+l1ocortl8 <-leave1out(rescortl8)
+l1ocortl8
+forest(l1ocortl8$estimate, sei=l1ocortl8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(cortl8$study), refline=coef(rescortl8), xlim = c(-7, 5))
 
 forest(rescortl8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7), 
        ilab = cbind(cortl8$`cm.L8.1`, cortl8$`cv.L8.1`,cortl8$n1,
@@ -155,6 +176,12 @@ cort8 <- escalc(measure ="MD", m1i=`cm.8.1`, m2i=`cm.8.2`
 rescort8 <- rma(yi, vi , data = cort8)
 rescort8
 
+influence(rescort8)
+
+l1ocort8 <-leave1out(rescort8)
+l1ocort8
+forest(l1ocort8$estimate, sei=l1ocort8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(cort8$study), refline=coef(rescort8), xlim = c(-15, 7))
 
 forest(rescort8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7), 
        ilab = cbind(cort8$`cm.8.1`, cort8$`cv.8.1`,cort8$n1,
