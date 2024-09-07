@@ -83,6 +83,12 @@ ham8 <- escalc(measure ="MD", m1i=`hm.8.1`, m2i=`hm.8.2`
 resham8 <- rma(yi, vi , data = ham8)
 resham8
 
+influence(resham8)
+l1oham8 <-leave1out(resham8)
+l1oham8
+forest(l1oham8$estimate, sei=l1oham8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(ham8$study), refline=coef(resham8), xlim = c(-15, 7))
+
 
 forest(resham8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7), 
        ilab = cbind(ham8$`hm.8.1`, ham8$`hv.8.1`,ham8$n1,
@@ -106,6 +112,11 @@ cort8 <- escalc(measure ="MD", m1i=`cm.8.1`, m2i=`cm.8.2`
 rescort8 <- rma(yi, vi , data = cort8)
 rescort8
 
+influence(rescort8)
+l1ocort8 <-leave1out(rescort8)
+l1ocort8
+forest(l1ocort8$estimate, sei=l1ocort8$se, header=TRUE, xlab="Leave One Out Estimate", 
+       slab = paste(cort8$study), refline=coef(rescort8), xlim = c(-10, 7))
 
 forest(rescort8, addpred = TRUE, showweights = TRUE,shade = "zebra",xlim = c(-18, 7), 
        ilab = cbind(cort8$`cm.8.1`, cort8$`cv.8.1`,cort8$n1,
