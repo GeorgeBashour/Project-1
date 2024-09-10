@@ -13,3 +13,7 @@ Things that can be improved upon (if I ever find the time):
             This makes the forest plot painful with mean and SD showing 0 to 3 digits randomly. 
         2- Forest plot measurements and positions are fun to play with, but it is also annoying that the large results (mean differences) make me generate largely different sizes for each forest plot.
             This will make the paper figures look inconsistent (which again hurts my OCD).
+
+Here are two example forest plots:
+![outcome 2](https://github.com/user-attachments/assets/1dbb574c-8315-4980-b363-e0546411d800)
+![outcome1](https://github.com/user-attachments/assets/0c994932-6315-4691-b9fa-3f08e5cc3b8f)
