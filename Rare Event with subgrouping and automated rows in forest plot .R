@@ -1,6 +1,8 @@
 library(metafor)
 library(dplyr)
 
+
+# Transformation functions (I only used the 2nd one because I went with PLN measure)
 mytransf <- function(x) {
   return(plogis(x) * 100) 
 }
@@ -17,7 +19,7 @@ mlabfun <- function(text, res) {
                     tau^2, " = ", .(formatC(res$tau2, digits=2, format="f")), ")")))
 }
 
-#Proportinal analysis
+# Proportional analysis
 
 
 
@@ -41,21 +43,20 @@ res <- rma(yi, vi, data=dat, control = list(stepadj=0.5, maxiter=1000), method =
 
 
 
+#Subgrouping automated (because different outcomes have different study counts)
 
-# Split data into subgroups
 subgroups <- split(dat, dat$Drug)
 subgroup_order <- c("Anti CTLA-4", "Anti PD-1", "Anti PD-L1", "Combination")  
 subgroups <- subgroups[subgroup_order]
 
-# Calculate rows dynamically
+
 n_studies <- sapply(subgroups, nrow)
 start_rows <- cumsum(c(4, n_studies[-4] + 3)) 
 
-# Generate row sequences for forest plot
+
 rows <- unlist(mapply(function(start, n) seq(start, length.out = n),
                       start_rows, n_studies))
 
-## Enhanced Forest Plot
 forest(res, xlim=c(-15, 5), ylim = c(-2, max(rows) + 3), 
        atransf=mytransf2, at = c(-8,-6,-4,-2,0),
        ilab = cbind(dat$Drug, dat$Total,dat$Event), ilab.xpos = c(-11, -10, -9),
