@@ -1,0 +1,128 @@
+library(metafor)
+library(tidyverse)
+library(readxl)
+
+
+mlabfun <- function(text, sens) {
+  list(bquote(paste(.(text, sep="\n"),
+                    " (Q = ", .(formatC(sens$QE, digits=2, format="f")),
+                    ", df = ", .(sens$k - sens$p),
+                    ", p ", .(metafor:::.pval(sens$QEp, digits=2, showeq=TRUE, sep=" ")), "; ",
+                    I^2, " = ", .(formatC(sens$I2, digits=1, format="f")), "%, ",
+                    tau^2, " = ", .(formatC(sens$tau2, digits=2, format="f")), ")")))
+}
+
+#getting my data in :
+
+
+sheet_name <- excel_sheets("C:/college/research/Systematic Reviews/Afib/data.xlsx")
+
+data_list <- lapply(sheet_name, function(sheet) {
+  read_excel("C:/college/research/Systematic Reviews/Afib/data.xlsx", sheet = sheet)
+})
+names(data_list) <- sheet_name
+
+
+
+
+
+#making the function to loop:
+
+analyze_and_plot <- function(dat, outcome_name) {
+  dat$log_OR <- log(dat$OR)
+  dat$se <- (log(dat$upper) - log(dat$lower)) / (2 * 1.96)
+  
+  
+  res <- rma(yi = log_OR, sei = se, method = "REML", data = dat)
+  
+  n_studies <- res$k
+  base_height <- 700
+  height_per_study <- 15
+  plot_height <- base_height + height_per_study * n_studies
+  ub<-ceiling(exp(res$ci.ub))
+
+  width_final <- 800 + (ub*80)
+  
+  a <- case_when(
+    ub < 1 ~ round(ub),
+    ub <= 2 ~ 1,
+    ub > 2 ~ 1
+  )
+  
+  b <- case_when(
+    ub < 1 ~ round(ub + 1),
+    ub <= 2 ~ round(ub + 1),
+    ub > 2 ~ round(ub)
+  )
+  
+  c <- case_when(
+    ub < 1 ~ round(ub + 2),
+    ub <= 2 ~ round(ub + 2),
+    ub > 2 ~ round(ub+4)
+  )
+  d <- case_when(
+    ub < 1 ~ round(-4),
+    ub <= 2 ~ round(-4),
+    ub > 2 ~ round(-8)
+  )
+  png(paste("forest_", outcome_name, ".PNG"), width = width_final, height = plot_height)
+  forest(res,
+         header = TRUE, at= c(0, a ,b ), 
+         cex = 1.2,xlim= c(d,c+2),  alim = c(0, b),
+         showweights = TRUE,
+         refline = 1,
+         shade = "zebra",order= "obs",
+         transf = exp,
+         mlab = mlabfun(outcome_name,res ),
+         xlab = " Odds-Ratio(95%)", 
+         slab = dat$ID)
+text(-1, -5, "Protective", cex = 1 )
+text( 2 , -5, "Risk Factor", cex = 1 )
+  dev.off()
+  
+  return(res)
+}
+results_list <- mapply(analyze_and_plot, data_list, names(data_list), SIMPLIFY = FALSE)
+
+
+
+
+
+#Working on specific sheets for certain tests:
+dat1<-data_list$`age`
+
+
+
+dat1$log_OR <- log(dat1$OR)
+dat1$se <- (log(dat1$upper) - log(dat1$lower)) / (2 * 1.96)
+
+
+
+res1<-rma(yi=log_OR, sei = se, method = "REML", data = dat1 )
+ub1 <-exp(res1$ci.ub)
+forest.rma(res1,addpred = TRUE , header = TRUE, cex = 1
+           , showweights = TRUE, refline = 1, 
+           shade = "zebra2", transf = exp,
+           mlab = mlabfun("RE Model", res1),xlab=" OR  days (95% )", slab = dat1$ID)
+
+forest.rma(res1,
+           header = TRUE, at= seq(0 , ub1 + 2, by=1 ), 
+           cex = 1, xlim= c(-4, ub1 + 5), alim = c(0, ub1 + 5),
+           showweights = TRUE,
+           refline = 1,
+           shade = "zebra",
+           transf = exp,
+           mlab = mlabfun("CABG",res1 ),
+           xlab = "Odds-Ratio (95%)",
+           slab = dat1$ID)
+text(-1, -5, "Protective", cex = 1 )
+text( 2 , -5, "Risk Factor", cex = 1 )
+inf<-influence(res1)
+plot(inf)
+
+LOO<-leave1out(res1)
+forest(LOO$estimate, sei=LOO$se, header=TRUE, xlab="Leave One Out Estimate", cex = 0.8,
+       slab = paste(dat1$ID), refline=1)
+
+
+
